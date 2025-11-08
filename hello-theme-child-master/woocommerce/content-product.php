@@ -17,35 +17,41 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 }
 ?>
 <li <?php wc_product_class( '', $product ); ?>>
-	<?php 
+	<?php
 	$permalink = esc_url( get_permalink() );
 	$title     = get_the_title();
 	?>
-	<a href="<?php echo $permalink; ?>">
-		<?php echo woocommerce_get_product_thumbnail(); ?>
-	</a>
+	<div class="product-card">
+		<div class="product-card__media">
+			<a href="<?php echo $permalink; ?>">
+				<?php echo woocommerce_get_product_thumbnail(); ?>
+			</a>
+		</div>
 
-	<h2>
-		<a href="<?php echo $permalink; ?>">
-			<?php echo esc_html( $title ); ?>
-		</a>
-	</h2>
+		<div class="product-card__body">
+			<h2>
+				<a href="<?php echo $permalink; ?>">
+					<?php echo esc_html( $title ); ?>
+				</a>
+			</h2>
 
-	<?php
-	$subtitle = get_post_meta( get_the_ID(), '_product_subtitle', true );
-	if ( $subtitle ) {
-		echo '<p>' . esc_html( $subtitle ) . '</p>';
-	}
+			<?php
+			$subtitle = get_post_meta( get_the_ID(), '_product_subtitle', true );
+			if ( $subtitle ) {
+				echo '<p>' . esc_html( $subtitle ) . '</p>';
+			}
 
-	$author = get_post_meta( get_the_ID(), '_product_author', true );
-	if ( $author ) {
-		echo '<p>' . esc_html__( 'De ', 'hello-elementor-child' ) . esc_html( $author ) . '</p>';
-	}
+			$author = get_post_meta( get_the_ID(), '_product_author', true );
+			if ( $author ) {
+				echo '<p>' . esc_html__( 'De ', 'hello-elementor-child' ) . esc_html( $author ) . '</p>';
+			}
 
-	if ( has_excerpt() ) {
-		$excerpt = wp_trim_words( get_the_excerpt(), 35, '...' );
-		echo '<p>' . esc_html( $excerpt ) . '</p>';
-	}
-	?>
+			if ( has_excerpt() ) {
+				$excerpt = wp_trim_words( get_the_excerpt(), 35, '...' );
+				echo '<p>' . esc_html( $excerpt ) . '</p>';
+			}
+			?>
+		</div>
+	</div>
 </li>
 

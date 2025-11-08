@@ -133,11 +133,26 @@
     cursor: pointer;
 }
 
-/* Product List Container */
+/* Product List Container - Override WooCommerce Grid */
 .woocommerce ul.products {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+/* Override WooCommerce column classes */
+.woocommerce ul.products.columns-1,
+.woocommerce ul.products.columns-2,
+.woocommerce ul.products.columns-3,
+.woocommerce ul.products.columns-4,
+.woocommerce ul.products.columns-5,
+.woocommerce ul.products.columns-6 {
+    display: flex !important;
+    flex-direction: column;
 }
 
 /* Individual Product Item */
@@ -145,23 +160,51 @@
     background: none;
     border: none;
     border-radius: 0;
-    margin: 0 0 30px 0;
-    padding: 0;
+    margin: 0 0 30px 0 !important;
+    padding: 0 0 30px 0;
+    border-bottom: 1px solid #e0e0e0;
+    width: 100% !important;
+    float: none !important;
+    display: block;
+    clear: both;
+    flex: 0 0 auto;
 }
 
 .woocommerce ul.products li.product:last-child {
     margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
-.woocommerce ul.products li.product > a {
-    display: block;
-    margin-bottom: 15px;
-}
-
-.woocommerce ul.products li.product img {
-    display: block;
-    height: auto;
+.woocommerce ul.products li.product .product-card {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
     width: 100%;
+    box-sizing: border-box;
+}
+
+.woocommerce ul.products li.product .product-card__media {
+    flex: 0 0 200px;
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.woocommerce ul.products li.product .product-card__media a {
+    display: block;
+}
+
+.woocommerce ul.products li.product .product-card__media img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.woocommerce ul.products li.product .product-card__body {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .woocommerce ul.products li.product h2 {
@@ -341,6 +384,15 @@
         padding: 15px;
     }
     
+    .woocommerce ul.products li.product .product-card {
+        flex-direction: column;
+    }
+    
+    .woocommerce ul.products li.product .product-card__media,
+    .woocommerce ul.products li.product .product-card__media img {
+        width: 100%;
+    }
+    
     .shop-sidebar {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -373,6 +425,10 @@
 @media screen and (max-width: 480px) {
     .shop-archive-container {
         padding: 10px;
+    }
+    
+    .woocommerce ul.products li.product .product-card {
+        gap: 15px;
     }
     
     .sidebar-title {

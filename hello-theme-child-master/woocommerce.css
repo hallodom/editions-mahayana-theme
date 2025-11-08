@@ -1,0 +1,123 @@
+/**
+ * WooCommerce Custom Styles
+ * 
+ * Custom styling for WooCommerce product archive and single product pages
+ * 
+ * @package HelloElementorChild
+ */
+
+/* ===================================
+   PRODUCT ARCHIVE / SHOP PAGE STYLES
+   =================================== */
+
+/* Product Grid Container */
+.woocommerce ul.products {
+    /* Add your custom grid styles here */
+}
+
+/* Individual Product Item */
+.woocommerce ul.products li.product {
+    /* Add your custom product card styles here */
+}
+
+/* Product Image */
+.woocommerce ul.products li.product .woocommerce-loop-product__link img {
+    /* Add your custom product image styles here */
+}
+
+/* Product Title */
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+    /* Add your custom product title styles here */
+}
+
+/* Product Price */
+.woocommerce ul.products li.product .price {
+    /* Add your custom price styles here */
+}
+
+/* Add to Cart Button (Archive) */
+.woocommerce ul.products li.product .button {
+    /* Add your custom add to cart button styles here */
+}
+
+/* Sale Badge */
+.woocommerce span.onsale {
+    /* Add your custom sale badge styles here */
+}
+
+/* Product Rating */
+.woocommerce .star-rating {
+    /* Add your custom star rating styles here */
+}
+
+/* ===================================
+   SINGLE PRODUCT PAGE STYLES
+   =================================== */
+
+/* Single Product Wrapper */
+.single-product-wrapper {
+    /* Add your custom single product wrapper styles here */
+}
+
+/* Product Image Gallery */
+.woocommerce div.product div.images {
+    /* Add your custom product image gallery styles here */
+}
+
+/* Product Summary/Details */
+.woocommerce div.product div.summary {
+    /* Add your custom product summary styles here */
+}
+
+/* Product Title (Single) */
+.woocommerce div.product .product_title {
+    /* Add your custom product title styles here */
+}
+
+/* Product Price (Single) */
+.woocommerce div.product p.price {
+    /* Add your custom product price styles here */
+}
+
+/* Product Description */
+.woocommerce div.product .woocommerce-product-details__short-description {
+    /* Add your custom product description styles here */
+}
+
+/* Add to Cart Button (Single) */
+.woocommerce div.product form.cart .button {
+    /* Add your custom add to cart button styles here */
+}
+
+/* Quantity Input */
+.woocommerce div.product form.cart .quantity {
+    /* Add your custom quantity input styles here */
+}
+
+/* Product Meta (SKU, Categories, Tags) */
+.woocommerce div.product .product_meta {
+    /* Add your custom product meta styles here */
+}
+
+/* Product Tabs */
+.woocommerce div.product .woocommerce-tabs {
+    /* Add your custom product tabs styles here */
+}
+
+/* Related Products */
+.woocommerce .related.products {
+    /* Add your custom related products styles here */
+}
+
+/* ===================================
+   RESPONSIVE STYLES
+   =================================== */
+
+@media screen and (max-width: 768px) {
+    /* Add your mobile responsive styles here */
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    /* Add your tablet responsive styles here */
+}
+

@@ -40,6 +40,52 @@ function mytheme_enqueue_google_fonts() {
 }
 add_action( 'wp_enqueue_scripts', 'mytheme_enqueue_google_fonts' );
 
+/**
+ * Enqueue WooCommerce custom styles
+ *
+ * @return void
+ */
+function hello_elementor_child_woocommerce_styles() {
+	// Only load on WooCommerce pages
+	if ( function_exists( 'is_woocommerce' ) && ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() ) ) {
+		wp_enqueue_style(
+			'hello-elementor-child-woocommerce',
+			get_stylesheet_directory_uri() . '/woocommerce.css',
+			array( 'hello-elementor-child-style' ),
+			HELLO_ELEMENTOR_CHILD_VERSION
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'hello_elementor_child_woocommerce_styles', 30 );
+
+/**
+ * WooCommerce Customization Hooks
+ * 
+ * Add your custom WooCommerce hooks and filters here
+ */
+
+// Example: Change number of products per row
+// add_filter( 'loop_shop_columns', function() {
+// 	return 3; // 3 products per row
+// });
+
+// Example: Change number of products per page
+// add_filter( 'loop_shop_per_page', function() {
+// 	return 12; // 12 products per page
+// });
+
+// Example: Remove product link from product images (archive)
+// remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
+// remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
+
+// Example: Add custom content before product title on archive pages
+// add_action( 'woocommerce_shop_loop_item_title', function() {
+// 	echo '<div class="custom-badge">Custom Content</div>';
+// }, 5 );
+
+// Example: Remove product rating on archive pages
+// remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+
 // Display product weight
 add_shortcode( 'product_weight', function() {
     global $product;

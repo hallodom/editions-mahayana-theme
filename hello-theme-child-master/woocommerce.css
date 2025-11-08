@@ -15,6 +15,11 @@
     margin-bottom: 20px;
 }
 
+/* Hide breadcrumb navigation */
+.woocommerce .woocommerce-breadcrumb {
+    display: none;
+}
+
 /* Ensure no extra padding from theme wrapper */
 .woocommerce-page .site-main,
 .woocommerce .site-main {
@@ -24,10 +29,10 @@
 /* Main Container with Sidebar and Content */
 .shop-archive-container {
     display: flex;
-    gap: 40px;
+    gap: 80px;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 80px 20px 30px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -50,10 +55,9 @@
 
 .sidebar-title {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: normal;
     margin: 0 0 15px 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0;
 }
 
 .product-categories-list,
@@ -81,12 +85,10 @@
 .product-categories-list a:hover,
 .product-tags-list a:hover {
     color: #000;
-    font-weight: 500;
 }
 
 .product-categories-list li.active a,
 .product-tags-list li.active a {
-    font-weight: 700;
     color: #000;
 }
 
@@ -103,10 +105,10 @@
 
 .woocommerce .woocommerce-products-header__title {
     font-size: 32px;
-    font-weight: 700;
+    font-weight: normal;
     margin: 0 0 10px 0;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 4px;
 }
 
 /* Top Toolbar */
@@ -115,8 +117,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0;
 }
 
 .result-count-wrapper {
@@ -161,8 +162,7 @@
     border: none;
     border-radius: 0;
     margin: 0 0 30px 0 !important;
-    padding: 0 0 30px 0;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
     width: 100% !important;
     float: none !important;
     display: block;
@@ -172,8 +172,6 @@
 
 .woocommerce ul.products li.product:last-child {
     margin-bottom: 0;
-    border-bottom: none;
-    padding-bottom: 0;
 }
 
 .woocommerce ul.products li.product .product-card {
@@ -209,8 +207,14 @@
 
 .woocommerce ul.products li.product h2 {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: normal;
     margin: 0 0 12px 0;
+    color: #000;
+}
+
+.woocommerce ul.products li.product h2 a {
+    color: #000;
+    text-decoration: none;
 }
 
 .woocommerce ul.products li.product p {
@@ -221,8 +225,7 @@
 /* Pagination */
 .shop-pagination-wrapper {
     margin-top: 40px;
-    padding-top: 30px;
-    border-top: 1px solid #e0e0e0;
+    padding-top: 0;
 }
 
 .woocommerce-pagination {

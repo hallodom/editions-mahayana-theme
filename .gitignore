@@ -1,8 +1,9 @@
-# Ignore everything by default
-*
+# Ignore specific WordPress default themes
+twentytwentyfive/
+twentytwentyfour/
+twentytwentythree/
 
-# But keep the hello themes
-!.gitignore
-!hello-elementor/
-!hello-theme-child-master/
+# Ignore the default index.php
+index.php
+.DS_Store
 

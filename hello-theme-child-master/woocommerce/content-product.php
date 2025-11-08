@@ -17,44 +17,35 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 }
 ?>
 <li <?php wc_product_class( '', $product ); ?>>
+	<?php 
+	$permalink = esc_url( get_permalink() );
+	$title     = get_the_title();
+	?>
+	<a href="<?php echo $permalink; ?>">
+		<?php echo woocommerce_get_product_thumbnail(); ?>
+	</a>
+
+	<h2>
+		<a href="<?php echo $permalink; ?>">
+			<?php echo esc_html( $title ); ?>
+		</a>
+	</h2>
+
 	<?php
-	/**
-	 * Hook: woocommerce_before_shop_loop_item.
-	 *
-	 * @hooked woocommerce_template_loop_product_link_open - 10
-	 */
-	do_action( 'woocommerce_before_shop_loop_item' );
+	$subtitle = get_post_meta( get_the_ID(), '_product_subtitle', true );
+	if ( $subtitle ) {
+		echo '<p>' . esc_html( $subtitle ) . '</p>';
+	}
 
-	/**
-	 * Hook: woocommerce_before_shop_loop_item_title.
-	 *
-	 * @hooked woocommerce_show_product_loop_sale_flash - 10
-	 * @hooked woocommerce_template_loop_product_thumbnail - 10
-	 */
-	do_action( 'woocommerce_before_shop_loop_item_title' );
+	$author = get_post_meta( get_the_ID(), '_product_author', true );
+	if ( $author ) {
+		echo '<p>' . esc_html__( 'De ', 'hello-elementor-child' ) . esc_html( $author ) . '</p>';
+	}
 
-	/**
-	 * Hook: woocommerce_shop_loop_item_title.
-	 *
-	 * @hooked woocommerce_template_loop_product_title - 10
-	 */
-	do_action( 'woocommerce_shop_loop_item_title' );
-
-	/**
-	 * Hook: woocommerce_after_shop_loop_item_title.
-	 *
-	 * @hooked woocommerce_template_loop_rating - 5
-	 * @hooked woocommerce_template_loop_price - 10
-	 */
-	do_action( 'woocommerce_after_shop_loop_item_title' );
-
-	/**
-	 * Hook: woocommerce_after_shop_loop_item.
-	 *
-	 * @hooked woocommerce_template_loop_product_link_close - 5
-	 * @hooked woocommerce_template_loop_add_to_cart - 10
-	 */
-	do_action( 'woocommerce_after_shop_loop_item' );
+	if ( has_excerpt() ) {
+		$excerpt = wp_trim_words( get_the_excerpt(), 35, '...' );
+		echo '<p>' . esc_html( $excerpt ) . '</p>';
+	}
 	?>
 </li>
 

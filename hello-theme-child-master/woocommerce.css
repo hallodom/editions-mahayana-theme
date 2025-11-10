@@ -107,6 +107,7 @@
     font-size: 32px;
     font-weight: normal;
     margin: 0 0 10px 0;
+    padding: 0;
     text-transform: uppercase;
     letter-spacing: 4px;
 }

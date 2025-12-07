@@ -120,3 +120,32 @@ function hello_elementor_child_modify_archive_actions() {
 }
 add_action( 'template_redirect', 'hello_elementor_child_modify_archive_actions' );
 
+/**
+ * Filter shop page to show only 'Livres' category products by default
+ * Only applies to the main shop page, not when viewing a specific category
+ *
+ * @param WP_Query $query The WP_Query instance.
+ * @return void
+ */
+function hello_elementor_child_filter_shop_by_livres( $query ) {
+    // Only on main shop page, not on category pages, and only for main query
+    if ( ! is_admin() && $query->is_main_query() && is_shop() && ! is_product_category() ) {
+        // Get the 'Livres' category term
+        $livres_term = get_term_by( 'name', 'Livres', 'product_cat' );
+        
+        if ( $livres_term && ! is_wp_error( $livres_term ) ) {
+            // Set the tax query to filter by 'Livres' category
+            $tax_query = array(
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'term_id',
+                    'terms'    => $livres_term->term_id,
+                ),
+            );
+            
+            $query->set( 'tax_query', $tax_query );
+        }
+    }
+}
+add_action( 'pre_get_posts', 'hello_elementor_child_filter_shop_by_livres' );
+

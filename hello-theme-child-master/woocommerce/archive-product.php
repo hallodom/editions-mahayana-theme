@@ -30,13 +30,7 @@ do_action( 'woocommerce_before_main_content' );
 		<div class="sidebar-section">
 			<h3 class="sidebar-title">Catégories</h3>
 			<?php
-			$product_categories = get_terms( array(
-				'taxonomy'   => 'product_cat',
-				'hide_empty' => true,
-				'parent'     => 0, // Top level categories only
-			) );
-			
-			// Define the desired category order
+			// Define the desired category order (exact order to display)
 			$category_order = array(
 				'Livres',
 				'Ebooks',
@@ -46,29 +40,81 @@ do_action( 'woocommerce_before_main_content' );
 				'PDF'
 			);
 			
-			if ( ! empty( $product_categories ) && ! is_wp_error( $product_categories ) ) {
-				// Sort categories according to the defined order
-				usort( $product_categories, function( $a, $b ) use ( $category_order ) {
-					$pos_a = array_search( $a->name, $category_order );
-					$pos_b = array_search( $b->name, $category_order );
+			// Categories to exclude (case-insensitive check)
+			$excluded_categories = array( 'Livres papier', 'Livres Papier', 'livres papier' );
+			
+			// Get ALL categories including empty ones - without parent restriction first
+			$all_categories = get_terms( array(
+				'taxonomy'   => 'product_cat',
+				'hide_empty' => false, // Show even if empty
+			) );
+			
+			// Create a map of category names to category objects
+			$category_map = array();
+			if ( ! empty( $all_categories ) && ! is_wp_error( $all_categories ) ) {
+				foreach ( $all_categories as $category ) {
+					$category_name = trim( $category->name );
 					
-					// If category not found in order array, put it at the end
-					if ( $pos_a === false ) $pos_a = 999;
-					if ( $pos_b === false ) $pos_b = 999;
+					// Skip excluded categories (case-insensitive)
+					$is_excluded = false;
+					foreach ( $excluded_categories as $excluded ) {
+						if ( strcasecmp( trim( $category_name ), trim( $excluded ) ) === 0 ) {
+							$is_excluded = true;
+							break;
+						}
+					}
 					
-					return $pos_a - $pos_b;
-				} );
-				
-				echo '<ul class="product-categories-list">';
-				foreach ( $product_categories as $category ) {
-					$category_link = get_term_link( $category );
-					$active_class = ( is_product_category( $category->slug ) ) ? ' active' : '';
-					echo '<li class="cat-item' . $active_class . '">';
-					echo '<a href="' . esc_url( $category_link ) . '">' . esc_html( $category->name ) . '</a>';
-					echo '</li>';
+					if ( ! $is_excluded ) {
+						// Only include top-level categories (parent = 0) or categories in our order list
+						if ( $category->parent == 0 || in_array( $category_name, $category_order ) ) {
+							$category_map[ $category_name ] = $category;
+						}
+					}
 				}
-				echo '</ul>';
 			}
+			
+			// Also try to get categories by name directly if they're in our order list but not found
+			// Try multiple variations of the name to catch any case/spelling differences
+			foreach ( $category_order as $ordered_name ) {
+				if ( ! isset( $category_map[ $ordered_name ] ) ) {
+					// Try exact name match
+					$term = get_term_by( 'name', $ordered_name, 'product_cat' );
+					if ( ! $term || is_wp_error( $term ) ) {
+						// Try case-insensitive search through all categories
+						foreach ( $all_categories as $cat ) {
+							if ( strcasecmp( trim( $cat->name ), trim( $ordered_name ) ) === 0 ) {
+								$term = $cat;
+								break;
+							}
+						}
+					}
+					if ( $term && ! is_wp_error( $term ) ) {
+						$category_map[ $ordered_name ] = $term;
+					}
+				}
+			}
+			
+			// Build ordered array based on category_order - always show all in order
+			$ordered_categories = array();
+			foreach ( $category_order as $ordered_name ) {
+				if ( isset( $category_map[ $ordered_name ] ) ) {
+					$ordered_categories[] = $category_map[ $ordered_name ];
+				}
+			}
+			
+			// Always display the list - show all categories in order
+			echo '<ul class="product-categories-list">';
+			foreach ( $ordered_categories as $category ) {
+				$category_link = get_term_link( $category );
+				if ( is_wp_error( $category_link ) ) {
+					continue;
+				}
+				$active_class = ( is_product_category( $category->slug ) ) ? ' active' : '';
+				echo '<li class="cat-item' . $active_class . '">';
+				echo '<a href="' . esc_url( $category_link ) . '">' . esc_html( $category->name ) . '</a>';
+				echo '</li>';
+			}
+			echo '</ul>';
 			?>
 		</div>
 		

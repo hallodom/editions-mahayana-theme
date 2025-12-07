@@ -106,3 +106,17 @@ add_shortcode( 'product_dimensions', function() {
     return '';
 });
 
+/**
+ * Remove default WooCommerce archive elements (only on archive pages)
+ * This prevents the actions from being removed globally and affecting other pages like single products.
+ *
+ * @return void
+ */
+function hello_elementor_child_modify_archive_actions() {
+    if ( is_shop() || is_product_category() || is_product_tag() ) {
+        remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+        remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+    }
+}
+add_action( 'template_redirect', 'hello_elementor_child_modify_archive_actions' );
+

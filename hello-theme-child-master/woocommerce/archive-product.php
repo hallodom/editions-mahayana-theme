@@ -123,11 +123,9 @@ do_action( 'woocommerce_before_main_content' );
 			 * Hook: woocommerce_before_shop_loop.
 			 *
 			 * @hooked woocommerce_output_all_notices - 10
-			 * @hooked woocommerce_result_count - 20 (removed, custom above)
-			 * @hooked woocommerce_catalog_ordering - 30 (removed, custom above)
+			 * @hooked woocommerce_result_count - 20 (removed in functions.php, custom above)
+			 * @hooked woocommerce_catalog_ordering - 30 (removed in functions.php, custom above)
 			 */
-			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
-			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
 			do_action( 'woocommerce_before_shop_loop' );
 
 			woocommerce_product_loop_start();

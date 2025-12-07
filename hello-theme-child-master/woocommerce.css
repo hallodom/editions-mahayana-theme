@@ -262,45 +262,171 @@
 }
 
 /* Pagination */
+.shop-pagination-wrapper,
+.shop-pagination-wrapper * {
+    border: none !important;
+    outline: none !important;
+}
+
 .shop-pagination-wrapper {
     margin-top: 40px;
     padding-top: 0;
 }
 
-.woocommerce-pagination {
-    text-align: center;
+.woocommerce-pagination,
+.woocommerce-pagination * {
+    border: none !important;
+    outline: none !important;
 }
 
-.woocommerce-pagination ul.page-numbers {
+.woocommerce-pagination {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.woocommerce-pagination ul.page-numbers,
+.woocommerce-pagination .page-numbers,
+ul.page-numbers,
+.page-numbers,
+.shop-pagination-wrapper .page-numbers,
+.shop-pagination-wrapper ul.page-numbers {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 12px;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    line-height: 1;
 }
 
-.woocommerce-pagination .page-numbers li {
-    display: inline-block;
+.woocommerce-pagination .page-numbers li,
+.woocommerce-pagination ul.page-numbers li,
+.page-numbers li,
+.shop-pagination-wrapper .page-numbers li,
+.shop-pagination-wrapper ul.page-numbers li,
+.page-numbers > li,
+.page-numbers li * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    vertical-align: middle;
+    line-height: 1;
 }
 
 .woocommerce-pagination .page-numbers a,
-.woocommerce-pagination .page-numbers span {
-    display: block;
-    padding: 8px 14px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.woocommerce-pagination .page-numbers span,
+.woocommerce-pagination ul.page-numbers a,
+.woocommerce-pagination ul.page-numbers span,
+.page-numbers a,
+.page-numbers span,
+.shop-pagination-wrapper .page-numbers a,
+.shop-pagination-wrapper .page-numbers span,
+.shop-pagination-wrapper ul.page-numbers a,
+.shop-pagination-wrapper ul.page-numbers span,
+.page-numbers li a,
+.page-numbers li span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: #ffffff;
+    border: none !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-radius: 50% !important;
     text-decoration: none;
     color: #333;
     font-size: 14px;
-    transition: all 0.3s ease;
+    line-height: 1;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: none !important;
+    outline: none !important;
+    box-sizing: border-box;
+    vertical-align: middle;
 }
 
 .woocommerce-pagination .page-numbers a:hover,
-.woocommerce-pagination .page-numbers span.current {
-    background: #000;
+.woocommerce-pagination ul.page-numbers a:hover,
+.page-numbers a:hover {
+    background: #e5e5e5 !important;
+    color: #333;
+    border: none !important;
+    outline: none !important;
+}
+
+.woocommerce-pagination .page-numbers span.current,
+.woocommerce-pagination ul.page-numbers span.current,
+.page-numbers span.current {
+    background: #999999;
     color: #fff;
-    border-color: #000;
+    border: none !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-radius: 50% !important;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: none !important;
+    outline: none !important;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+/* Force remove all borders from page-numbers - highest specificity */
+.shop-pagination-wrapper .woocommerce-pagination .page-numbers,
+.shop-pagination-wrapper .woocommerce-pagination ul.page-numbers,
+.shop-pagination-wrapper .woocommerce-pagination .page-numbers li,
+.shop-pagination-wrapper .woocommerce-pagination .page-numbers a,
+.shop-pagination-wrapper .woocommerce-pagination .page-numbers span,
+.shop-pagination-wrapper .woocommerce-pagination ul.page-numbers li,
+.shop-pagination-wrapper .woocommerce-pagination ul.page-numbers a,
+.shop-pagination-wrapper .woocommerce-pagination ul.page-numbers span,
+.woocommerce-pagination ul.page-numbers,
+.woocommerce-pagination .page-numbers,
+ul.page-numbers,
+.page-numbers,
+.page-numbers li,
+.page-numbers a,
+.page-numbers span {
+    border: none !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Additional aggressive border removal for all page-numbers variants */
+[class*="page-numbers"],
+[class*="pagination"] [class*="page-numbers"],
+.woocommerce [class*="page-numbers"] {
+    border: none !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
 }
 
 /* ===================================
@@ -465,10 +591,23 @@
         font-size: 18px;
     }
     
+    .woocommerce-pagination ul.page-numbers,
+    .woocommerce-pagination .page-numbers {
+        gap: 10px;
+    }
+    
     .woocommerce-pagination .page-numbers a,
     .woocommerce-pagination .page-numbers span {
-        padding: 6px 10px;
+        width: 32px;
+        height: 32px;
+        padding: 0;
         font-size: 13px;
+    }
+    
+    .woocommerce-pagination .page-numbers span.current {
+        width: 32px;
+        height: 32px;
+        padding: 0;
     }
 }
 

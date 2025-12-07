@@ -36,7 +36,29 @@ do_action( 'woocommerce_before_main_content' );
 				'parent'     => 0, // Top level categories only
 			) );
 			
+			// Define the desired category order
+			$category_order = array(
+				'Livres',
+				'Ebooks',
+				'Livres audio',
+				'Sadhanas & prières',
+				'Cartes & stickers',
+				'PDF'
+			);
+			
 			if ( ! empty( $product_categories ) && ! is_wp_error( $product_categories ) ) {
+				// Sort categories according to the defined order
+				usort( $product_categories, function( $a, $b ) use ( $category_order ) {
+					$pos_a = array_search( $a->name, $category_order );
+					$pos_b = array_search( $b->name, $category_order );
+					
+					// If category not found in order array, put it at the end
+					if ( $pos_a === false ) $pos_a = 999;
+					if ( $pos_b === false ) $pos_b = 999;
+					
+					return $pos_a - $pos_b;
+				} );
+				
 				echo '<ul class="product-categories-list">';
 				foreach ( $product_categories as $category ) {
 					$category_link = get_term_link( $category );

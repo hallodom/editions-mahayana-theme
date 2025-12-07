@@ -145,7 +145,55 @@ function hello_elementor_child_filter_shop_by_livres( $query ) {
             
             $query->set( 'tax_query', $tax_query );
         }
+        
+        // Set default sorting to latest (newest first) if no orderby is set
+        if ( ! isset( $_GET['orderby'] ) ) {
+            $query->set( 'orderby', 'date' );
+            $query->set( 'order', 'DESC' );
+        }
+    }
+    
+    // Also apply default sorting to category pages if no orderby is set
+    if ( ! is_admin() && $query->is_main_query() && is_product_category() && ! isset( $_GET['orderby'] ) ) {
+        $query->set( 'orderby', 'date' );
+        $query->set( 'order', 'DESC' );
     }
 }
 add_action( 'pre_get_posts', 'hello_elementor_child_filter_shop_by_livres' );
+
+/**
+ * Set default WooCommerce shop ordering to latest (newest first)
+ *
+ * @param string $orderby Current orderby value.
+ * @return string Modified orderby value.
+ */
+function hello_elementor_child_default_shop_orderby( $orderby ) {
+    // Only set default if no orderby parameter is passed
+    if ( ! isset( $_GET['orderby'] ) ) {
+        return 'date';
+    }
+    return $orderby;
+}
+add_filter( 'woocommerce_default_catalog_orderby', 'hello_elementor_child_default_shop_orderby' );
+
+/**
+ * Set default WooCommerce shop order direction to descending (newest first)
+ *
+ * @param string $order Current order value.
+ * @return string Modified order value.
+ */
+function hello_elementor_child_default_shop_order( $order ) {
+    // Only set default if no orderby parameter is passed
+    if ( ! isset( $_GET['orderby'] ) ) {
+        return 'DESC';
+    }
+    return $order;
+}
+add_filter( 'woocommerce_get_catalog_ordering_args', function( $args ) {
+    if ( ! isset( $_GET['orderby'] ) ) {
+        $args['orderby'] = 'date';
+        $args['order'] = 'DESC';
+    }
+    return $args;
+}, 20 );
 

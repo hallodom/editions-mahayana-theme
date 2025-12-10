@@ -26,15 +26,49 @@
     padding: 0;
 }
 
+/* Override .site-main max-width on category pages to allow full width */
+/* This ensures the parent theme's .site-main doesn't constrain our 1400px container */
+body.tax-product_cat .site-main,
+body.tax-product_cat .site .site-main,
+.tax-product_cat .site-main,
+.tax-product_cat .site .site-main,
+body.tax-product_cat .content-area,
+body.tax-product_cat .site-content,
+.tax-product_cat .content-area,
+.tax-product_cat .site-content {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Ensure all parent containers allow full width on category pages */
+body.tax-product_cat .site-container,
+body.tax-product_cat .container,
+body.tax-product_cat .wrapper,
+body.tax-product_cat .page-wrapper,
+.tax-product_cat .site-container,
+.tax-product_cat .container,
+.tax-product_cat .wrapper,
+.tax-product_cat .page-wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
 /* Main Container with Sidebar and Content */
 .shop-archive-container {
     display: flex;
     gap: 80px;
-    max-width: 1400px;
+    max-width: 1400px !important;
     margin: 0 auto;
     padding: 80px 20px 30px;
     width: 100%;
     box-sizing: border-box;
+}
+
+/* Ensure shop-archive-container gets full width on category pages */
+body.tax-product_cat .shop-archive-container,
+.tax-product_cat .shop-archive-container {
+    max-width: 1400px !important;
+    width: 100% !important;
 }
 
 /* Hide default WooCommerce sidebar */
@@ -532,6 +566,17 @@ ul.page-numbers,
    =================================== */
 
 @media screen and (max-width: 1200px) {
+    /* Ensure .site-main doesn't constrain width on category pages even in media queries */
+    body.tax-product_cat .site-main,
+    body.tax-product_cat .site .site-main,
+    .tax-product_cat .site-main,
+    .tax-product_cat .site .site-main,
+    body.tax-product_cat .content-area,
+    body.tax-product_cat .site-content {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
     .shop-archive-container {
         gap: 30px;
     }
@@ -543,6 +588,17 @@ ul.page-numbers,
 }
 
 @media screen and (max-width: 1024px) {
+    /* Ensure .site-main doesn't constrain width on category pages even in media queries */
+    body.tax-product_cat .site-main,
+    body.tax-product_cat .site .site-main,
+    .tax-product_cat .site-main,
+    .tax-product_cat .site .site-main,
+    body.tax-product_cat .content-area,
+    body.tax-product_cat .site-content {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
     .shop-archive-container {
         flex-direction: column;
     }

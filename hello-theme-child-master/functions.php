@@ -197,3 +197,36 @@ add_filter( 'woocommerce_get_catalog_ordering_args', function( $args ) {
     return $args;
 }, 20 );
 
+/**
+ * Force product category pages to use archive-product.php template
+ * This ensures category pages have the same layout and width as the archive page
+ *
+ * @param string $template The template file path.
+ * @return string Modified template file path.
+ */
+function hello_elementor_child_category_template( $template ) {
+    if ( is_product_category() ) {
+        $archive_template = locate_template( array( 'woocommerce/archive-product.php' ) );
+        if ( $archive_template ) {
+            return $archive_template;
+        }
+    }
+    return $template;
+}
+add_filter( 'taxonomy_template', 'hello_elementor_child_category_template', 99 );
+add_filter( 'archive_template', 'hello_elementor_child_category_template', 99 );
+
+/**
+ * Ensure WooCommerce uses our archive template for category pages
+ * This is a more direct approach using WooCommerce's template system
+ */
+function hello_elementor_child_wc_category_template( $template, $template_name, $template_path ) {
+    if ( is_product_category() && $template_name === 'archive-product.php' ) {
+        $custom_template = locate_template( array( 'woocommerce/archive-product.php' ) );
+        if ( $custom_template ) {
+            return $custom_template;
+        }
+    }
+    return $template;
+}
+add_filter( 'woocommerce_locate_template', 'hello_elementor_child_wc_category_template', 10, 3 );

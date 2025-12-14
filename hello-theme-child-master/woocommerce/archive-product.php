@@ -30,18 +30,31 @@ do_action( 'woocommerce_before_main_content' );
 		<div class="sidebar-section">
 			<h3 class="sidebar-title">Catégories</h3>
 			<?php
-			// Define the desired category order (exact order to display)
-			$category_order = array(
-				'Livres',
-				'Ebooks',
-				'Livres audio',
-				'Sadhanas & prières',
-				'Cartes & stickers',
-				'PDF'
-			);
+			// Check if user is librairie role
+			$is_librairie = function_exists( 'nem_user_is_librairie' ) && nem_user_is_librairie();
 			
-			// Categories to exclude (case-insensitive check)
-			$excluded_categories = array( 'Livres papier', 'Livres Papier', 'livres papier' );
+			// Define the desired category order (exact order to display)
+			// For librairie users, show 'Livres papier' instead of 'Livres' and hide digital products
+			if ( $is_librairie ) {
+				$category_order = array(
+					'Livres papier',
+					'Sadhanas & prières',
+					'Cartes & stickers',
+				);
+				// For librairie users, exclude 'Livres' and digital product categories
+				$excluded_categories = array( 'Livres', 'Ebooks', 'Livres audio', 'PDF' );
+			} else {
+				$category_order = array(
+					'Livres',
+					'Ebooks',
+					'Livres audio',
+					'Sadhanas & prières',
+					'Cartes & stickers',
+					'PDF'
+				);
+				// Categories to exclude (case-insensitive check)
+				$excluded_categories = array( 'Livres papier', 'Livres Papier', 'livres papier' );
+			}
 			
 			// Get ALL categories including empty ones - without parent restriction first
 			$all_categories = get_terms( array(

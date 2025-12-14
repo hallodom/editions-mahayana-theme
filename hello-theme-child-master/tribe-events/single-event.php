@@ -209,12 +209,26 @@ get_header();
 	border-radius: 12px;
 	overflow: hidden;
 	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+	line-height: 0 !important;
+	font-size: 0 !important;
+}
+
+.event-featured-image .tribe-events-event-image {
+	display: block !important;
+	line-height: 0 !important;
+	font-size: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 
 .event-featured-image img {
-	width: 100%;
-	height: auto;
-	display: block;
+	width: 100% !important;
+	height: auto !important;
+	display: block !important;
+	vertical-align: bottom !important;
+	line-height: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 
 .event-content {
